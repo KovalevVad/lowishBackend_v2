@@ -20,5 +20,8 @@ namespace lowishBackend_v2.Models
 
         // Оставим поле Name для обратной совместимости
         public string? Name { get; set; }
+
+        // Навигационное свойство для вишлистов пользователя
+        public virtual ICollection<Wishlist>? Wishlists { get; set; }
     }
 }
