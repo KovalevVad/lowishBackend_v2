@@ -67,6 +67,7 @@ namespace lowishBackend_v2.Controllers
             {
                 Success = true,
                 Token = token,
+                UserId = user.Id,
                 Username = user.Username,
                 Message = "Регистрация прошла успешно"
             });
@@ -95,6 +96,7 @@ namespace lowishBackend_v2.Controllers
             {
                 Success = true,
                 Token = token,
+                UserId = user.Id,
                 Username = user.Username,
                 Message = "Авторизация прошла успешно"
             });

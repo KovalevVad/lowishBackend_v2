@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using lowishBackend_v2.Models;
@@ -11,9 +12,11 @@ using lowishBackend_v2.Models;
 namespace lowishBackend_v2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250512160639_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,47 +24,6 @@ namespace lowishBackend_v2.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("lowishBackend_v2.Models.Gift", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("PurchaseUrl")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("text");
-
-                    b.Property<int>("WishListId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WishListId");
-
-                    b.ToTable("Gifts");
-                });
 
             modelBuilder.Entity("lowishBackend_v2.Models.User", b =>
                 {
@@ -120,17 +82,6 @@ namespace lowishBackend_v2.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("WishLists");
-                });
-
-            modelBuilder.Entity("lowishBackend_v2.Models.Gift", b =>
-                {
-                    b.HasOne("lowishBackend_v2.Models.WishList", "WishList")
-                        .WithMany()
-                        .HasForeignKey("WishListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WishList");
                 });
 
             modelBuilder.Entity("lowishBackend_v2.Models.WishList", b =>
